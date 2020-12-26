@@ -24,25 +24,28 @@ jobs:
       - name: build
         run: npm run build
       - name: test
-        run: npm test
-      - name: e2e tests
-        uses: cypress-io/github-action@v2
-        with:
-          command: npm run test:e2e
-          start: npm run start-prod
-          wait-on: http://localhost:5000
-      - uses: akhileshns/heroku-deploy@v3.7.8
-        if: ${{ github.event_name == 'push' }}
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
-          heroku_email: ${{secrets.HEROKU_EMAIL}}
-          healthcheck: "https://${{secrets.HEROKU_APP_NAME}}.herokuapp.com/health"
-          checkstring: "ok"
-          rollbackonhealthcheckfailed: true
-      - uses: actions/checkout@v2
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.33.0
-        if: ${{ github.event_name == 'push' }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
+        if: ${{ github.event_name == 'push' }} && !contains("$COMMIT_MESSAGES", "#skip")
+        run: npm test
+      # - name: e2e tests
+      #   uses: cypress-io/github-action@v2
+      #   with:
+      #     command: npm run test:e2e
+      #     start: npm run start-prod
+      #     wait-on: http://localhost:5000
+      # - uses: akhileshns/heroku-deploy@v3.7.8
+      #   if: ${{ github.event_name == 'push' }}
+      #   with:
+      #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+      #     heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+      #     heroku_email: ${{secrets.HEROKU_EMAIL}}
+      #     healthcheck: "https://${{secrets.HEROKU_APP_NAME}}.herokuapp.com/health"
+      #     checkstring: "ok"
+      #     rollbackonhealthcheckfailed: true
+      # - uses: actions/checkout@v2
+      # - name: Bump version and push tag
+      #   uses: anothrNick/github-tag-action@1.33.0
+      #   if: ${{ github.event_name == 'push' }}
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
