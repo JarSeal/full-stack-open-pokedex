@@ -43,11 +43,10 @@ jobs:
       - uses: 8398a7/action-slack@v3
         with:
           status: custom
-          channel: '#code'
+          icon_emoji: ':goberserk:'
           custom_payload: |
             {
               username: 'action-slack-bot',
-              icon_emoji: ':x:',
               channel: '#code',
               attachments: [{
                   color: 'danger',
@@ -68,11 +67,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: 8398a7/action-slack@v3
         with:
-          status: custom          
+          status: custom
+          icon_emoji: ':package:'
           custom_payload: |
             {
               username: 'action-slack-bot',
-              icon_emoji: ':package:',
               channel: '#code',
               attachments: [{
                   color: 'success',
