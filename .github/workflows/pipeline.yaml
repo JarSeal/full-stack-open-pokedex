@@ -48,7 +48,7 @@ jobs:
             {
               username: 'action-slack-bot',
               icon_emoji: ':x:',
-              channel: '#code'
+              channel: '#code',
               attachments: [{
                   color: 'danger',
                   text: `Deployment to https://${{secrets.HEROKU_APP_NAME}}.herokuapp.com failed.\n${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}, ${{ job.status }} in ${process.env.AS_TOOK}. Commit message: "${process.env.AS_MESSAGE}"`
@@ -73,7 +73,7 @@ jobs:
             {
               username: 'action-slack-bot',
               icon_emoji: ':package:',
-              channel: '#code'
+              channel: '#code',
               attachments: [{
                   color: 'success',
                   text: `Deployment to https://${{secrets.HEROKU_APP_NAME}}.herokuapp.com done and version upgraded to ${steps.new_id.outputs.new_tag}.\n${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}, ${{ job.status }} in ${process.env.AS_TOOK}. Commit message: "${process.env.AS_MESSAGE}"`
