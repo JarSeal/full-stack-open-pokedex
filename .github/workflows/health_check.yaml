@@ -6,9 +6,9 @@ on:
       - master
 
 jobs:
-  hello_world_job:
+  health_check_job:
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/is-my-site-up@v1.1
+      - uses: jtalk/url-health-check-action@v1.2
         with:
-          site: 'https://${{secrets.HEROKU_APP_NAME}}.herokuapp.com'
+          url: 'https://${{secrets.HEROKU_APP_NAME}}.herokuapp.com'
