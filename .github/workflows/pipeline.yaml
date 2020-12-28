@@ -46,11 +46,10 @@ jobs:
           custom_payload: |
             {
               username: 'action-slack-bot',
-              icon_emoji: ':goberserk::x:',
+              icon_emoji: ':goberserk:',
               attachments: [{
                   color: 'danger',
-                  text: `Deployment to https://${{secrets.HEROKU_APP_NAME}}.herokuapp.com failed.\n
-                        ${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF} by ${process.env.AS_AUTHOR} ${{ job.status }} in ${process.env.AS_TOOK}`
+                  text: `Deployment to https://${{secrets.HEROKU_APP_NAME}}.herokuapp.com failed.\n${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}, ${{ job.status }} in ${process.env.AS_TOOK}. Commit message: "${github.event.head_commit.message}"`
                 }]
             }
           fields: repo,message,commit,workflow,job,took
@@ -74,8 +73,7 @@ jobs:
               icon_emoji: ':package:',
               attachments: [{
                   color: 'success',
-                  text: `Deployment to https://${{secrets.HEROKU_APP_NAME}}.herokuapp.com done and version upgraded to ${steps.new_id.outputs.new_tag}.\n
-                        ${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF} by ${process.env.AS_AUTHOR} ${{ job.status }} in ${process.env.AS_TOOK}`
+                  text: `Deployment to https://${{secrets.HEROKU_APP_NAME}}.herokuapp.com done and version upgraded to ${steps.new_id.outputs.new_tag}.\n${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}, ${{ job.status }} in ${process.env.AS_TOOK}. Commit message: "${github.event.head_commit.message}"`
                 }]
             }
           fields: repo,message,commit,workflow,job,took
