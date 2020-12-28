@@ -10,4 +10,5 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/is-my-site-up@v1.1
-        site: 'https://${{secrets.HEROKU_APP_NAME}}.herokuapp.com'
+        with:
+          site: 'https://${{secrets.HEROKU_APP_NAME}}.herokuapp.com'
